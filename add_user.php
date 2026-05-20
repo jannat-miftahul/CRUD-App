@@ -10,7 +10,7 @@ include "header.php";
                     <h3 class="text-white mb-0">Add New User</h3>
                 </div>
                 <div class="card-body">
-                    <form action="process_add_user.php" method="POST">
+                    <form action="./controllers/add_user_controller.php" method="POST" enctype="multipart/form-data"
                         <div class="mb-3">
                             <label for="name" class="form-label">First Name</label>
                             <input type="text" class="form-control" id="name" name="name" required>
@@ -28,17 +28,25 @@ include "header.php";
 
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" id="summernote" name="description" rows="3"></textarea>
+                            <textarea class="form-control summernote" id="description" name="description"
+                                rows="3"></textarea>
                         </div>
 
                         <div class="mb-3">
                             <label for="experience" class="form-label">Experience</label>
-                            <input type="text" class="form-control" id="experience" name="experience">
+                            <textarea class="form-control summernote" id="experience" name="experience"
+                                rows="3"></textarea>
                         </div>
 
                         <div class="mb-3">
                             <label for="project" class="form-label">Project</label>
-                            <input type="text" class="form-control" id="project" name="project">
+                            <textarea class="form-control summernote" id="project" name="project" rows="3"></textarea>
+                        </div>
+
+                        <!-- profile -->
+                        <div class="mb-3">
+                            <label for="profile" class="form-label">Profile</label>
+                            <input type="file" class="form-control" id="profile" name="profile">
                         </div>
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -57,9 +65,9 @@ include "footer.php";
 ?>
 
 <script>
-    $('#summernote').summernote({
-        placeholder: 'Hello Bootstrap 5',
-        tabsize: 2,
-        height: 100
+    $(document).ready(function () {
+        $('.summernote').summernote({
+            height: 100
+        });
     });
 </script>
