@@ -28,7 +28,17 @@ include "header.php";
 
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                            <textarea class="form-control" id="summernote" name="description" rows="3"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="experience" class="form-label">Experience</label>
+                            <input type="text" class="form-control" id="experience" name="experience">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="project" class="form-label">Project</label>
+                            <input type="text" class="form-control" id="project" name="project">
                         </div>
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -45,3 +55,11 @@ include "header.php";
 <?php
 include "footer.php";
 ?>
+
+<script>
+    $('#summernote').summernote({
+        placeholder: 'Hello Bootstrap 5',
+        tabsize: 2,
+        height: 100
+    });
+</script>

@@ -11,9 +11,9 @@ include "header.php";
             <p class="text-center">This is a simple CRUD application built with PHP and Bootstrap. Use the navigation
                 bar to add, view, update, or delete users.</p>
         </div>
-
-        <div class="card ">
-
-        </div>
     </div>
 </div>
+
+<?php
+include "footer.php";
+?>
