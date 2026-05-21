@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "header.php";
 ?>
 
@@ -10,20 +11,54 @@ include "header.php";
                     <h3 class="text-white mb-0">Add New User</h3>
                 </div>
                 <div class="card-body">
-                    <form action="./controllers/add_user_controller.php" method="POST" enctype="multipart/form-data"
+                    <?php
+                    if (isset($_SESSION['error'])) {
+                        echo '<p class="text-danger fw-bold">' . $_SESSION['error'] . '</p>';
+                        unset($_SESSION['error']);
+                    }
+                    if (isset($_SESSION['success'])) {
+                        echo '<p class="text-success fw-bold">' . $_SESSION['success'] . '</p>';
+                        unset($_SESSION['success']);
+                    }
+                    ?>
+
+
+                    <form action="./controllers/add_user_controller.php" method="POST" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="name" class="form-label">First Name</label>
                             <input type="text" class="form-control" id="name" name="name" required>
+
+                            <?php
+                            if (isset($_SESSION['error'])) { ?>
+                                <span class="text-danger"> <?= $_SESSION['error'] ?> </span>
+                                <?php
+                            }
+                            ?>
                         </div>
+
 
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" id="email" name="email" required>
+
+                            <?php
+                            if (isset($_SESSION['error'])) { ?>
+                                <span class="text-danger"> <?= $_SESSION['error'] ?> </span>
+                                <?php
+                            }
+                            ?>
                         </div>
 
                         <div class="mb-3">
                             <label for="phone" class="form-label">Phone Number</label>
                             <input type="tel" class="form-control" id="phone" name="phone">
+
+                            <?php
+                            if (isset($_SESSION['error'])) { ?>
+                                <span class="text-danger"> <?= $_SESSION['error'] ?> </span>
+                                <?php
+                            }
+                            ?>
                         </div>
 
                         <div class="mb-3">
@@ -31,6 +66,7 @@ include "header.php";
                             <textarea class="form-control summernote" id="description" name="description"
                                 rows="3"></textarea>
                         </div>
+
 
                         <div class="mb-3">
                             <label for="experience" class="form-label">Experience</label>
@@ -51,7 +87,7 @@ include "header.php";
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <a href="index.php" class="btn btn-secondary">Cancel</a>
-                            <button type="submit" class="btn btn-primary">Add User</button>
+                            <button type="submit" name="submit" class="btn btn-primary">Add User</button>
                         </div>
                     </form>
                 </div>
