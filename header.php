@@ -40,10 +40,10 @@ include "function.php";
                         <a class="nav-link" href="#">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="add_user.php">Add User</a>
+                        <a class="nav-link active" href="add_user.php">Add User</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">View Users</a>
+                        <a class="nav-link" href="view_users.php">View Users</a>
                     </li>
                 </ul>
             </div>

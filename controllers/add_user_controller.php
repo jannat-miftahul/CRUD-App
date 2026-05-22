@@ -25,27 +25,33 @@ $profile_image = $_FILES["profile_image"];
 if (empty($name)) {
     $_SESSION['name_err'] = "Name is required";
     header("Location: ../add_user.php");
+    exit();
 } elseif (!preg_match("/^[a-zA-Z-' ]*$/", $name)) {
     $_SESSION['name_err'] = "Only letters and white space allowed in name";
     header("Location: ../add_user.php");
+    exit();
 }
 
 // email validation
 if (empty($email)) {
     $_SESSION['email_err'] = "Email is required";
     header("Location: ../add_user.php");
+    exit();
 } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $_SESSION['email_err'] = "Invalid email format";
     header("Location: ../add_user.php");
+    exit();
 } elseif (!preg_match("/@gmail\.com$/", $email)) {
     $_SESSION["email_err"] = "Email must end with @gmail.com";
     header("Location: ../add_user.php");
+    exit();
 }
 
 // description validation
 if (empty($description)) {
     $_SESSION["description_err"] = "Description is required";
     header("Location: ../add_user.php");
+    exit();
 }
 
 // // experience validation
@@ -65,16 +71,18 @@ if (isset($_FILES['profile_image'])) {
     if (empty($profile_image['name'])) {
         $_SESSION['image_err'] = "profile image image is required";
         header("Location: ../add_user.php");
+        exit();
     }
     // extension validation
     $image_name = $profile_image['name'];
     $file_extension = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
-    print_r($file_extension);
+    // print_r($file_extension);
     $allowed_extensions = ['jpg', 'jpeg', 'png', 'webp'];
 
     if (!in_array($file_extension, $allowed_extensions)) {
         $_SESSION['image_err'] = "Only JPG, JPEG, PNG, and WEBP files are allowed";
         header("Location: ../add_user.php");
+        exit();
     }
 
     // uploading image
@@ -83,7 +91,7 @@ if (isset($_FILES['profile_image'])) {
     $image_url = "http://localhost/CRUD-App/uploads/" . $image_new_name;
 
     // store data in database
-    include "./config/db.php";
+    include "../config/db.php";
     $stmt = $conn->prepare("INSERT INTO users (name, email, description, experience, project, profile_image) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param(
         "ssssss",
@@ -100,9 +108,6 @@ if (isset($_FILES['profile_image'])) {
     if ($insert) {
         move_uploaded_file($image_location, "../uploads/" . $image_new_name);
         $_SESSION['success'] = "User added successfully";
-        header("Location: ../add_user.php");
-    } else {
-        $_SESSION['error'] = "Failed to add user";
         header("Location: ../add_user.php");
     }
 }
