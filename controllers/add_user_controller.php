@@ -81,6 +81,30 @@ if (isset($_FILES['profile_image'])) {
     $image_location = $profile_image['tmp_name'];
     $image_new_name = uniqid("user_") . "." . $file_extension; // user_123456789.jpg
     $image_url = "http://localhost/CRUD-App/uploads/" . $image_new_name;
+
+    // store data in database
+    include "./config/db.php";
+    $stmt = $conn->prepare("INSERT INTO users (name, email, description, experience, project, profile_image) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param(
+        "ssssss",
+        $name,
+        $email,
+        $description,
+        $experience,
+        $project,
+        $image_new_name,
+        $image_url
+    );
+
+    $insert = $stmt->execute();
+    if ($insert) {
+        move_uploaded_file($image_location, "../uploads/" . $image_new_name);
+        $_SESSION['success'] = "User added successfully";
+        header("Location: ../add_user.php");
+    } else {
+        $_SESSION['error'] = "Failed to add user";
+        header("Location: ../add_user.php");
+    }
 }
 
 ?>
