@@ -1,5 +1,11 @@
 <?php
 include "header.php";
+include "./config/db.php";
+$stmt = $conn->prepare("SELECT id, name, email, description, experience, project, image_name, image_url FROM users WHERE 1");
+$stmt->execute();
+$result = $stmt->get_result();
+$users = $result->fetch_all(MYSQLI_ASSOC);
+// print_r($result);
 
 ?>
 
@@ -23,15 +29,11 @@ include "header.php";
 
                 <tbody>
                     <?php
-                    $stmt = $pdo->prepare("SELECT * FROM users");
-                    $stmt->execute();
-                    $users = $stmt->fetchAll();
 
-                    foreach ($users as $user) { ?>
+                    foreach ($users as $key => $user) { ?>
                         <tr>
-                            <td><?= $user['id'] ?></td>
-                            <td><img src="uploads/<?= $user['profile_image'] ?>" alt="Profile Image" class="img-thumbnail"
-                                    width="50"></td>
+                            <td><?= $key + 1 ?></td>
+                            <td><img src="<?= $user['image_url'] ?>" alt="profile" class="img-thumbnail" width="50"></td>
                             <td><?= $user['name'] ?></td>
                             <td><?= $user['email'] ?></td>
                             <td>

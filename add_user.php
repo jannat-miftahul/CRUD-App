@@ -28,7 +28,7 @@ include "header.php";
     <div class="card-body">
         <form action="./controllers/add_user_controller.php" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
-                <label for="name" class="form-label">First Name</label>
+                <label for="name" class="form-label">Name</label>
                 <input type="text" class="form-control" id="name" name="name" required>
 
                 <?php
@@ -87,8 +87,8 @@ include "header.php";
 
             <!-- profile -->
             <div class="mb-3">
-                <label for="profile_image" class="form-label">Profile Image</label>
-                <input type="file" class="form-control" id="profile_image" name="profile_image">
+                <label for="profile" class="form-label">Profile Image</label>
+                <input type="file" class="form-control" id="profile" name="profile">
                 <?php
                 if (isset($_SESSION['image_err'])) { ?>
                     <span class="text-danger"> <?= $_SESSION['image_err'] ?> </span>

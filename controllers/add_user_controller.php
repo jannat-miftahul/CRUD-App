@@ -11,9 +11,9 @@ $email = test_user($_POST["email"]);
 $description = test_user($_POST["description"]);
 $experience = test_user($_POST["experience"]);
 $project = test_user($_POST["project"]);
-$profile_image = $_FILES["profile_image"];
+$profile = $_FILES["profile"];
 
-// print_r($profile_image);
+// print_r($profile);
 
 // // validation
 // if (empty($name) || empty($email) || empty($phone) || empty($description) || empty($experience) || empty($project)) {
@@ -67,14 +67,14 @@ if (empty($description)) {
 // }
 
 // file handling
-if (isset($_FILES['profile_image'])) {
-    if (empty($profile_image['name'])) {
+if (isset($_FILES['profile'])) {
+    if (empty($profile['name'])) {
         $_SESSION['image_err'] = "profile image image is required";
         header("Location: ../add_user.php");
         exit();
     }
     // extension validation
-    $image_name = $profile_image['name'];
+    $image_name = $profile['name'];
     $file_extension = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
     // print_r($file_extension);
     $allowed_extensions = ['jpg', 'jpeg', 'png', 'webp'];
@@ -86,15 +86,15 @@ if (isset($_FILES['profile_image'])) {
     }
 
     // uploading image
-    $image_location = $profile_image['tmp_name'];
+    $image_location = $profile['tmp_name'];
     $image_new_name = uniqid("user_") . "." . $file_extension; // user_123456789.jpg
     $image_url = "http://localhost/CRUD-App/uploads/" . $image_new_name;
 
     // store data in database
     include "../config/db.php";
-    $stmt = $conn->prepare("INSERT INTO users (name, email, description, experience, project, profile_image) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO users (name, email, description, experience, project, image_name, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param(
-        "ssssss",
+        "sssssss",
         $name,
         $email,
         $description,
